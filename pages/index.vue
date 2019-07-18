@@ -6,7 +6,7 @@
         pwa-project
       </h1>
       <h2 class="subtitle">
-        My cool Nuxt.js project
+        Deploy to Netlify
       </h2>
       <div class="links">
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">
