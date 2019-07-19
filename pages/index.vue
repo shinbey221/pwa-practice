@@ -19,17 +19,33 @@
         >
           GitHub
         </a>
+        <button @click="googleLoginAction">login</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Logo from '~/components/Logo.vue'
 
 export default {
   components: {
     Logo
+  },
+  data() {
+    return {
+      test: ''
+    }
+  },
+  mounted() {
+    console.log(process.env.API_KEY)
+  },
+  methods: {
+    ...mapActions('user', ['googleLogin']),
+    googleLoginAction() {
+      this.googleLogin()
+    }
   }
 }
 </script>

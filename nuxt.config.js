@@ -1,3 +1,5 @@
+require('dotenv').config()
+const { API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, MESSAGING_SENDER_ID } = process.env
 export default {
   mode: 'spa',
   /*
@@ -39,6 +41,9 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module'
   ],
+  router: {
+    middleware: 'authenticated'
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -52,5 +57,12 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  env: {
+    API_KEY,
+    AUTH_DOMAIN,
+    DATABASE_URL,
+    PROJECT_ID,
+    MESSAGING_SENDER_ID
   }
 }
