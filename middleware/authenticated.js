@@ -1,9 +1,15 @@
-const auth = ({ store, route, redirect }) => {
+import firebase from 'firebase'
+
+const auth = async ({ store, route, redirect }) => {
   console.log(store.getters['user/isAuthenticated'])
-  if (!store.getters['user/isAuthenticated'] && route.name !== 'login') {
+  const user = await new Promise((resolve, reject) => {
+    firebase.auth().onAuthStateChanged((user) => resolve(user))
+  })
+  console.log(user)
+  if (!user && route.name !== 'login') {
     redirect('/login')
   }
-  if (store.getters['user/isAuthenticated'] && route.name === 'login') {
+  if (user && route.name === 'login') {
     redirect('/')
   }
 }

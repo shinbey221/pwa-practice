@@ -19,7 +19,8 @@
         >
           GitHub
         </a>
-        <button @click="googleLoginAction">login</button>
+        <button @click="doLogout">Logout</button>
+        <button @click="nextPage">Push</button>
       </div>
     </div>
   </div>
@@ -42,9 +43,14 @@ export default {
     console.log(process.env.API_KEY)
   },
   methods: {
-    ...mapActions('user', ['googleLogin']),
-    googleLoginAction() {
-      this.googleLogin()
+    ...mapActions('user', ['logout']),
+    doLogout() {
+      this.logout().then(() => {
+        this.$router.push('/login')
+      })
+    },
+    nextPage() {
+      this.$router.push('/main')
     }
   }
 }
