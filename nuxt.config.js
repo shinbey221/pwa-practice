@@ -1,5 +1,17 @@
 require('dotenv').config()
-const { API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, MESSAGING_SENDER_ID } = process.env
+const webpack = require('webpack')
+const defineEnv = new webpack.DefinePlugin({
+  'process.env': {
+    'API_KEY': process.env.API_KEY,
+    'AUTH_DOMAIN': process.env.AUTH_DOMAIN,
+    'DATABASE_URL': process.env.DATABASE_URL,
+    'PROJECT_ID': process.env.PROJECT_ID,
+    'STORAGE_BUCKET': process.env.STORAGE_BUCKET,
+    'MESSAGING_SENDER_ID': process.env.MESSAGING_SENDER_ID
+  }
+})
+const { API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, MESSAGING_SENDER_ID } = defineEnv.definitions['process.env']
+
 export default {
   mode: 'spa',
   /*
@@ -29,7 +41,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  // plugins: [defineEnv.definitions['process.env']],
   /*
    ** Nuxt.js modules
    */

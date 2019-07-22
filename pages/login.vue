@@ -51,6 +51,7 @@ export default {
   methods: {
     ...mapActions('user', ['setUser']),
     signIn(event) {
+      console.log(process.env.API_KEY)
       event.preventDefault()
       firebase
         .auth()
