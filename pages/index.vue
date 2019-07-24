@@ -21,6 +21,8 @@
         </a>
         <button @click="doLogout">Logout</button>
         <button @click="nextPage">Push</button>
+        <a @click="$router.push('/createAccount')">トップへ</a>
+        <nuxt-link to="/createAccount">create account</nuxt-link>
       </div>
     </div>
   </div>
