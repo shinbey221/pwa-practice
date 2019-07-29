@@ -1,9 +1,9 @@
 <template>
-  <div class="loginbackgroud">
+  <div>
     <b-container fluid>
       <b-row class="text-center" align-v="center">
-        <b-col cols="1" md="4" />
-        <b-col cols="10" sm="10" md="4">
+        <b-col cols="1" md="5" />
+        <b-col cols="10" sm="10" md="2">
           <h1 style="margin-top: 60px;">LOGIN</h1>
           <b-form style="margin-top: 30px;" @submit="signIn">
             <b-form-group label="Email address" label-for="input-1">
@@ -29,11 +29,6 @@
                 Sign In
               </b-button>
             </b-form-group>
-            <b-form-group style="margin-top: 30px;">
-              <b-button block variant="success" @click="signInForGoogle">
-                Sign In For Google
-              </b-button>
-            </b-form-group>
           </b-form>
           <nuxt-link to="/createAccount">create account</nuxt-link>
         </b-col>
@@ -44,60 +39,31 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+// import firebase from 'firebase'
 import { mapActions } from 'vuex'
 
 export default {
   data() {
     return {
-      test: 'test',
       email: '',
       password: ''
     }
   },
   methods: {
-    ...mapActions('user', ['setUser']),
+    ...mapActions('user', ['login']),
     signIn(event) {
-      console.log(process.env.API_KEY)
       event.preventDefault()
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then((data) => {
-          const { displayName, email } = data.user
-          this.setUser({ displayName, email }).then(() => {
-            this.$router.push('/')
-          })
-        })
-        .catch((error) => {
-          alert(error)
-        })
-    },
-    signInForGoogle() {
-      const provider = new firebase.auth.GoogleAuthProvider()
-      provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
-      firebase.auth().useDeviceLanguage()
-      firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then((result) => {
-          console.log('success')
-          console.log(result)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      const user = {
+        email: this.email,
+        password: this.password
+      }
+      this.login(user).then(() => {
+        this.$router.push('/')
+      })
     },
     pushToCreateAccountPage() {
-      console.log('aa')
       this.$router.push('/createAccount')
     }
   }
 }
 </script>
-
-<style>
-.loginbackgroud {
-  min-height: 100vh;
-}
-</style>

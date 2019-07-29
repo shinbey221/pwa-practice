@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import Logo from '~/components/Logo.vue'
 
 export default {
@@ -41,8 +41,11 @@ export default {
       test: ''
     }
   },
+  computed: {
+    ...mapGetters('user', ['getUserData'])
+  },
   mounted() {
-    console.log(process.env.API_KEY)
+    console.log(this.getUserData)
   },
   methods: {
     ...mapActions('user', ['logout']),
