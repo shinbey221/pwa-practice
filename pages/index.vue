@@ -7,6 +7,9 @@
         <b-button variant="outline-primary" @click="doLogout">
           Logout
         </b-button>
+        <b-button variant="outline-primary" @click="sendMessage">
+          Messaging
+        </b-button>
       </div>
     </div>
   </div>
@@ -14,12 +17,14 @@
 
 <script>
 import firebase from 'firebase'
+import axios from 'axios'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
   data() {
     return {
-      test: ''
+      test: '',
+      token: ''
     }
   },
   computed: {
@@ -27,9 +32,9 @@ export default {
   },
   created() {
     const messaging = firebase.messaging()
-    messaging.usePublicVapidKey(
-      'BEb3_m7a3jwE-i08JtKUVX3Y3jsWaMUrVNJpwuq4MM-dQ7Iw1p5jzxkKQym7MrctmIASmqXRXyKa3cWPqbqhjL4'
-    )
+    // messaging.usePublicVapidKey(
+    //   'BEb3_m7a3jwE-i08JtKUVX3Y3jsWaMUrVNJpwuq4MM-dQ7Iw1p5jzxkKQym7MrctmIASmqXRXyKa3cWPqbqhjL4'
+    // )
     messaging
       .requestPermission()
       .then(() => {
@@ -37,6 +42,7 @@ export default {
           .getToken()
           .then((currentToken) => {
             if (currentToken) {
+              this.token = currentToken
               console.log(currentToken)
               // sendTokenToServer(currentToken)
               // updateUIForPushEnabled(currentToken)
@@ -83,6 +89,30 @@ export default {
     },
     nextPage() {
       this.$router.push('/main')
+    },
+    sendMessage() {
+      console.log(this.token)
+      const headers = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization:
+            'Bearer AAAAU_qGpJ8:APA91bHLud3x75i5qaK4F7iSzVcEdy1TqkdH01_o1YtSbisq0BWNKZsQ2dAu6zPwC46MoMsP2jaASnAff-2LFB1ROthhwe2aEw7Tzt5cp-WfQCoR9_jr5nRDveZnuwGm7V5IB3ebf--2'
+        }
+      }
+      const sendData = {
+        message: {
+          token: this.token,
+          notification: {
+            title: 'Formで入力したtitle',
+            body: 'Formで入力したbody'
+          }
+        }
+      }
+      axios.post(
+        'https://fcm.googleapis.com/v1/pwa-practice-93929/messages:send',
+        sendData,
+        headers
+      )
     }
   }
 }

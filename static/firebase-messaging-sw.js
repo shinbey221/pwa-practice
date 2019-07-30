@@ -11,20 +11,20 @@ if (!firebase.apps.length) {
 }
 const messaging = firebase.messaging()
 
-messaging.onMessage((payload) => {
-  console.log('Message received.', payload)
-  // ...
-})
+// messaging.onMessage((payload) => {
+//   console.log('Message received.', payload)
+//   // ...
+// })
 
-messaging.setBackgroundMessageHandler((payload) => {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload)
-  // Customize notification here
-  var notificationTitle = 'Background Message Title'
-  var notificationOptions = {
-    body: 'Background Message body.',
-    icon: '/firebase-logo.png'
-  };
+// messaging.setBackgroundMessageHandler((payload) => {
+//   console.log('[firebase-messaging-sw.js] Received background message ', payload)
+//   // Customize notification here
+//   var notificationTitle = 'Background Message Title'
+//   var notificationOptions = {
+//     body: 'Background Message body.',
+//     icon: '/firebase-logo.png'
+//   };
 
-  return self.registration.showNotification(notificationTitle,
-    notificationOptions)
-})
+//   return self.registration.showNotification(notificationTitle,
+//     notificationOptions)
+// })
