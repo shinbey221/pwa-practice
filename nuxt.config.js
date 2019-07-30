@@ -45,6 +45,9 @@ export default {
   router: {
     middleware: 'authenticated'
   },
+  manifest: {
+    gcm_sender_id: '103953800507'
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options

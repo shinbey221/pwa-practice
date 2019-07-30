@@ -1,0 +1,10 @@
+{
+  "to": "TOKEN",
+  "time_to_live": 60,
+  "notification": {
+      "title": "test",
+      "body": "This is Test",
+      "icon": "icon",
+      "click_action": "url"
+  }
+}

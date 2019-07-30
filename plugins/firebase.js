@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-
+console.log('firebase')
 firebase.initializeApp({
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
