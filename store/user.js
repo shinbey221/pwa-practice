@@ -38,15 +38,22 @@ export const actions = {
     }
   },
   async createUser({ commit }, user) {
+    const createData = {
+      email: user.email,
+      password: user.password
+    }
     try {
-      const createLogin = await firebaseCreateUser(user)
+      await firebaseCreateUser(createData)
+      await firebaseUpdateUser(user.userName)
       const resultLogin = await firebaseLogin(user)
-      console.log(createLogin)
-      commit('setUser', null)
+      commit('setUser', resultLogin)
       return resultLogin
     } catch (e) {
       throw new Error(e)
     }
+  },
+  setUserData({ commit }, user) {
+    commit('setUser', user)
   }
 }
 
@@ -60,13 +67,12 @@ const firebaseLogin = (user) => {
         resolve({ displayName, email })
       })
       .catch((error) => {
-        alert(error)
         reject(error)
       })
   })
 }
 
-const firebaseLogout = (user) => {
+const firebaseLogout = () => {
   return new Promise((resolve, reject) => {
     firebase
       .auth()
@@ -89,7 +95,22 @@ const firebaseCreateUser = (user) => {
         resolve(data)
       })
       .catch((error) => {
-        alert(error)
+        reject(error)
+      })
+  })
+}
+
+const firebaseUpdateUser = (userName) => {
+  const user = firebase.auth().currentUser
+  return new Promise((resolve, reject) => {
+    user
+      .updateProfile({
+        displayName: userName
+      })
+      .then(() => {
+        resolve()
+      })
+      .catch((error) => {
         reject(error)
       })
   })

@@ -3,7 +3,9 @@
     <b-row class="text-center" align-v="center">
       <b-col cols="1" md="4" />
       <b-col cols="10" sm="10" md="4">
-        <h1 style="margin-top: 60px;">Create Account</h1>
+        <h1 style="margin-top: 60px;">
+          Create Account
+        </h1>
       </b-col>
     </b-row>
     <b-container fluid>
@@ -11,32 +13,40 @@
         <b-col cols="1" md="5" />
         <b-col cols="10" sm="10" md="2">
           <b-form style="margin-top: 30px;" @submit="signUp">
+            <b-form-group label="User Name" label-for="input-1">
+              <b-form-input
+                id="input-1"
+                v-model="userName"
+                required
+                placeholder="Enter User Name"
+              />
+            </b-form-group>
             <b-form-group label="Email address" label-for="input-1">
               <b-form-input
                 id="input-1"
+                v-model="email"
                 type="email"
                 required
                 placeholder="Enter email"
-                v-model="email"
-              ></b-form-input>
+              />
             </b-form-group>
             <b-form-group label="Password" label-for="input-2">
               <b-form-input
                 id="input-2"
+                v-model="password"
                 type="password"
                 required
                 placeholder="Enter password"
-                v-model="password"
-              ></b-form-input>
+              />
             </b-form-group>
             <b-form-group label="ConfilmPassword" label-for="input-2">
               <b-form-input
                 id="input-2"
+                v-model="confilmPassword"
                 type="password"
                 required
                 placeholder="Enter confilm password"
-                v-model="confilmPassword"
-              ></b-form-input>
+              />
             </b-form-group>
             <b-form-group style="margin-top: 30px;">
               <b-button block type="submit" variant="success">
@@ -58,13 +68,14 @@ import { mapActions } from 'vuex'
 export default {
   data() {
     return {
+      userName: '',
       email: '',
       password: '',
       confilmPassword: ''
     }
   },
   methods: {
-    ...mapActions('user', ['createUser', 'login']),
+    ...mapActions('user', ['createUser']),
     signUp() {
       event.preventDefault()
       if (this.password !== this.confilmPassword) {
@@ -72,6 +83,7 @@ export default {
         return
       }
       const user = {
+        userName: this.userName,
         email: this.email,
         password: this.password
       }
@@ -80,7 +92,7 @@ export default {
           this.$router.push('/')
         })
         .catch((error) => {
-          console.log(error)
+          alert(error)
         })
     }
   }
