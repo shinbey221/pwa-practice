@@ -10,13 +10,16 @@
         <b-button variant="outline-primary" @click="sendMessage">
           Messaging
         </b-button>
+        <b-button variant="outline-primary" @click="$router.push('/main')">
+          Push
+        </b-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import firebase from 'firebase'
+import firebase from 'firebase'
 import axios from 'axios'
 import { mapActions, mapGetters } from 'vuex'
 
@@ -29,6 +32,22 @@ export default {
   },
   computed: {
     ...mapGetters('user', ['getUserData'])
+  },
+  created() {
+    console.log('aaaaa')
+    const messaging = firebase.messaging()
+    messaging
+      .requestPermission()
+      .then(() => {
+        return messaging.getToken()
+      })
+      .then((token) => {
+        const url = `https://us-central1-pwa-practice-93929.cloudfunctions.net/addMessage?token=${token}`
+        axios.get(url)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   },
   mounted() {
     console.log(this.getUserData)
