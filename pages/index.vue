@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+// import firebase from 'firebase'
 import axios from 'axios'
 import { mapActions, mapGetters } from 'vuex'
 
@@ -29,53 +29,6 @@ export default {
   },
   computed: {
     ...mapGetters('user', ['getUserData'])
-  },
-  created() {
-    const messaging = firebase.messaging()
-    // messaging.usePublicVapidKey(
-    //   'BEb3_m7a3jwE-i08JtKUVX3Y3jsWaMUrVNJpwuq4MM-dQ7Iw1p5jzxkKQym7MrctmIASmqXRXyKa3cWPqbqhjL4'
-    // )
-    messaging
-      .requestPermission()
-      .then(() => {
-        messaging
-          .getToken()
-          .then((currentToken) => {
-            if (currentToken) {
-              this.token = currentToken
-              console.log(currentToken)
-              // sendTokenToServer(currentToken)
-              // updateUIForPushEnabled(currentToken)
-            } else {
-              // Show permission request.
-              // Show permission UI.
-              // updateUIForPushPermissionRequired()
-              // setTokenSentToServer(false)
-            }
-          })
-          .catch((err) => {
-            console.log('not', err)
-          })
-      })
-      .catch((err) => {
-        console.log('Unable to get permission to notify.', err)
-      })
-    // const messaging = firebase.messaging()
-    // messaging
-    //   .requestPermission()
-    //   .then(() => {
-    //     console.log('Have permission')
-    //     return messaging.getToken()
-    //   })
-    //   .then((currentToken) => {
-    //     if (currentToken) {
-    //       // プッシュ通知を受信し，表示できる状態
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //     console.log('Error Occurred.')
-    //   })
   },
   mounted() {
     console.log(this.getUserData)

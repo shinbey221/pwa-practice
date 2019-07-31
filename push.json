@@ -1,6 +1,5 @@
 {
-  "to": "TOKEN",
-  "time_to_live": 60,
+  "to":"fwCyCkp0oi8:APA91bHiR7_9LxQjEOZoQ1T-Iqg6mFbgdGVAle16D_lO0mtQrR_nkuF59_7BXtc9pHBsTeYmu6IEmRVB5oFelHsLBBbwIOGHbgMauFaMmb52PQXHJ3SNM8ifW81GD22UGBEg56PrO8cL",
   "notification": {
       "title": "test",
       "body": "This is Test",
