@@ -1,4 +1,6 @@
 import firebase from 'firebase'
+import axios from 'axios'
+
 firebase.initializeApp({
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
@@ -15,7 +17,8 @@ messaging
     return messaging.getToken()
   })
   .then((token) => {
-    console.log(token)
+    const url = `https://us-central1-pwa-practice-93929.cloudfunctions.net/addMessage?token=${token}`
+    axios.get(url)
   })
   .catch((error) => {
     console.log(error)
