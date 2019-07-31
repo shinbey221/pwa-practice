@@ -34,7 +34,6 @@ export default {
     ...mapGetters('user', ['getUserData'])
   },
   created() {
-    console.log('aaaaa')
     const messaging = firebase.messaging()
     messaging
       .requestPermission()
